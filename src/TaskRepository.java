@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class TaskRepository {
     private ArrayList<Task> listTask = new ArrayList<>();
@@ -24,31 +21,41 @@ public class TaskRepository {
     public boolean update(long id, String description, int priorityNumber){
         for(Task task: listTask){
             if (task.getId() == id){
-                task.setDescription(description);
+                if (description != null){
+                    task.setDescription(description);
+                } else{
+                    return false;
+                }
                 task.setPriority(Priority.fromLevel(priorityNumber));
                 return true;
             }
         }
         return false;
     }
-    //DELETE
-    public boolean deleteById(long id){
+    //DONE
+    public boolean updateDone(long id, boolean b){
         for(Task task: listTask){
             if (task.getId() == id){
-                listTask.remove(task);
+                task.setDone(b);
                 return true;
             }
         }
         return false;
     }
-    //FIND
-    public Task findById(long id){
-        for(Task task: listTask){
-            if (task.getId() == id){
-                return task;
+
+    //DELETE
+    public boolean deleteById(long id){
+        Iterator<Task> it = listTask.iterator();
+        while (it.hasNext()) {
+            if (it.next().getId() == id) {
+                it.remove();
+                return true;
             }
         }
-        return null;
+        return false;
+    }
+    public Optional<Task> findById(long id) {
+        return listTask.stream().filter(t -> t.getId() == id).findFirst();
     }
 
 

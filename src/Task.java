@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Task {
     private String description; //Описание задачи
@@ -8,7 +7,7 @@ public class Task {
     private boolean done; //статус выполнения
 
     private final long ID;
-    private final LocalDateTime dateCreate;
+    private final LocalDateTime createdAt;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     //description
@@ -32,15 +31,15 @@ public class Task {
     public void setDone(boolean done){ this.done = done;}
 
     //final
-    public LocalDateTime getDateCreate() {
-        return dateCreate;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
     public long getId(){ return ID;}
 
     //Конструктор
     public Task(long id, String description, Priority priority){
         this.ID = id;
-        dateCreate = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
 
         if(description == null || description.trim().isEmpty()){
             throw new IllegalArgumentException("Описание задачи не может быть пустым");
@@ -53,7 +52,7 @@ public class Task {
 
     //toString
     public String toString(){
-        return "id: " + ID + ", Приоритет: " + priority.getTranslation() + "; задача: " + description + "; Дата создания: " + dateCreate.format(formatter);
+        return "id: " + ID + ", Приоритет: " + priority.getTranslation() + "; задача: " + description + "; Статус выполнения: " + (done ? "Выполнено" : "Не выполнено") + "; Дата создания: " + createdAt.format(formatter);
     }
 }
 
