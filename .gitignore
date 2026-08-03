@@ -3,6 +3,9 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+.idea/
+*.iml
+veai/
 
 ### Eclipse ###
 .apt_generated
@@ -28,3 +31,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Файлы сборки
+target/
+*.class
